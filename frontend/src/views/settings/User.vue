@@ -1,32 +1,32 @@
 <template>
   <errors v-if="error" :errorCode="error.message" />
-  <div class="row" v-else-if="!loading">
+  <div v-else-if="!loading" class="row">
     <div class="column">
-      <form @submit="save" class="card">
+      <form class="card" @submit="save">
         <div class="card-title">
           <h2 v-if="user.id === 0">{{ $t("settings.newUser") }}</h2>
           <h2 v-else>{{ $t("settings.user") }} {{ user.username }}</h2>
         </div>
 
         <div class="card-content">
-          <user-form :user.sync="user" :isDefault="false" :isNew="isNew" />
+          <user-form :isDefault="false" :isNew="isNew" :user.sync="user" />
         </div>
 
         <div class="card-action">
           <button
             v-if="!isNew"
-            @click.prevent="deletePrompt"
-            type="button"
-            class="button button--flat button--red"
             :aria-label="$t('buttons.delete')"
             :title="$t('buttons.delete')"
+            class="button button--flat button--red"
+            type="button"
+            @click.prevent="deletePrompt"
           >
             {{ $t("buttons.delete") }}
           </button>
           <input
+            :value="$t('buttons.save')"
             class="button button--flat"
             type="submit"
-            :value="$t('buttons.save')"
           />
         </div>
       </form>
@@ -39,11 +39,11 @@
 
       <div class="card-action">
         <button
-          class="button button--flat button--grey"
-          @click="closeHovers"
           v-focus
           :aria-label="$t('buttons.cancel')"
           :title="$t('buttons.cancel')"
+          class="button button--flat button--grey"
+          @click="closeHovers"
         >
           {{ $t("buttons.cancel") }}
         </button>
@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
-import { users as api, settings } from "@/api";
+import { mapMutations, mapState } from "vuex";
+import { settings, users as api } from "@/api";
 import UserForm from "@/components/settings/UserForm";
 import Errors from "@/views/Errors";
 import deepClone from "lodash.clonedeep";

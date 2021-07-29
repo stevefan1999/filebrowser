@@ -1,13 +1,13 @@
 <template>
   <errors v-if="error" :errorCode="error.message" />
-  <div class="row" v-else-if="!loading">
+  <div v-else-if="!loading" class="row">
     <div class="column">
       <div class="card">
         <div class="card-title">
           <h2>{{ $t("settings.shareManagement") }}</h2>
         </div>
 
-        <div class="card-content full" v-if="links.length > 0">
+        <div v-if="links.length > 0" class="card-content full">
           <table>
             <tr>
               <th>{{ $t("settings.path") }}</th>
@@ -24,28 +24,28 @@
                 }}</a>
               </td>
               <td>
-                <template v-if="link.expire !== 0">{{
-                  humanTime(link.expire)
-                }}</template>
+                <template v-if="link.expire !== 0"
+                  >{{ humanTime(link.expire) }}
+                </template>
                 <template v-else>{{ $t("permanent") }}</template>
               </td>
               <td v-if="user.perm.admin">{{ link.username }}</td>
               <td class="small">
                 <button
-                  class="action"
-                  @click="deleteLink($event, link)"
                   :aria-label="$t('buttons.delete')"
                   :title="$t('buttons.delete')"
+                  class="action"
+                  @click="deleteLink($event, link)"
                 >
                   <i class="material-icons">delete</i>
                 </button>
               </td>
               <td class="small">
                 <button
-                  class="action copy-clipboard"
-                  :data-clipboard-text="buildLink(link.hash)"
                   :aria-label="$t('buttons.copyToClipboard')"
+                  :data-clipboard-text="buildLink(link.hash)"
                   :title="$t('buttons.copyToClipboard')"
+                  class="action copy-clipboard"
                 >
                   <i class="material-icons">content_paste</i>
                 </button>
@@ -53,7 +53,7 @@
             </tr>
           </table>
         </div>
-        <h2 class="message" v-else>
+        <h2 v-else class="message">
           <i class="material-icons">sentiment_dissatisfied</i>
           <span>{{ $t("files.lonely") }}</span>
         </h2>
@@ -65,7 +65,7 @@
 <script>
 import { share as api, users } from "@/api";
 import { baseURL } from "@/utils/constants";
-import { mapState, mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import moment from "moment";
 import Clipboard from "clipboard";
 import Errors from "@/views/Errors";

@@ -1,4 +1,4 @@
-import { fetchURL, fetchJSON } from "./utils";
+import { fetchJSON, fetchURL } from "./utils";
 
 export async function getAll() {
   return fetchJSON(`/api/users`, {});

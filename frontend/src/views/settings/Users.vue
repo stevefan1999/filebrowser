@@ -1,15 +1,15 @@
 <template>
   <errors v-if="error" :errorCode="error.message" />
-  <div class="row" v-else-if="!loading">
+  <div v-else-if="!loading" class="row">
     <div class="column">
       <div class="card">
         <div class="card-title">
           <h2>{{ $t("settings.users") }}</h2>
-          <router-link to="/settings/users/new"
-            ><button class="button">
+          <router-link to="/settings/users/new">
+            <button class="button">
               {{ $t("buttons.new") }}
-            </button></router-link
-          >
+            </button>
+          </router-link>
         </div>
 
         <div class="card-content full">
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import { users as api } from "@/api";
 import Errors from "@/views/Errors";
 

@@ -1,19 +1,19 @@
 <template>
   <div
-    class="image-ex-container"
     ref="container"
-    @touchstart="touchStart"
-    @touchmove="touchMove"
+    class="image-ex-container"
     @dblclick="zoomAuto"
     @mousedown="mousedownStart"
     @mousemove="mouseMove"
     @mouseup="mouseUp"
+    @touchmove="touchMove"
+    @touchstart="touchStart"
     @wheel="wheelMove"
   >
     <img
-      src=""
-      class="image-ex-img image-ex-img-center"
       ref="imgex"
+      class="image-ex-img image-ex-img-center"
+      src=""
       @load="onLoad"
     />
   </div>

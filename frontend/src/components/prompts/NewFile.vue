@@ -7,28 +7,28 @@
     <div class="card-content">
       <p>{{ $t("prompts.newFileMessage") }}</p>
       <input
-        class="input input--block"
         v-focus
+        v-model.trim="name"
+        class="input input--block"
         type="text"
         @keyup.enter="submit"
-        v-model.trim="name"
       />
     </div>
 
     <div class="card-action">
       <button
-        class="button button--flat button--grey"
-        @click="$store.commit('closeHovers')"
         :aria-label="$t('buttons.cancel')"
         :title="$t('buttons.cancel')"
+        class="button button--flat button--grey"
+        @click="$store.commit('closeHovers')"
       >
         {{ $t("buttons.cancel") }}
       </button>
       <button
-        class="button button--flat"
-        @click="submit"
         :aria-label="$t('buttons.create')"
         :title="$t('buttons.create')"
+        class="button button--flat"
+        @click="submit"
       >
         {{ $t("buttons.create") }}
       </button>

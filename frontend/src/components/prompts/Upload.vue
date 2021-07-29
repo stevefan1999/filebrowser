@@ -9,11 +9,11 @@
     </div>
 
     <div class="card-action full">
-      <div @click="uploadFile" class="action">
+      <div class="action" @click="uploadFile">
         <i class="material-icons">insert_drive_file</i>
         <div class="title">File</div>
       </div>
-      <div @click="uploadFolder" class="action">
+      <div class="action" @click="uploadFolder">
         <i class="material-icons">folder</i>
         <div class="title">Folder</div>
       </div>

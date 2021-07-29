@@ -1,9 +1,9 @@
 <template>
   <div
-    @click="focus"
-    class="shell"
     ref="scrollable"
     :class="{ ['shell--hidden']: !showShell }"
+    class="shell"
+    @click="focus"
   >
     <div v-for="(c, index) in content" :key="index" class="shell__result">
       <div class="shell__prompt">
@@ -12,15 +12,15 @@
       <pre class="shell__text">{{ c.text }}</pre>
     </div>
 
-    <div class="shell__result" :class="{ 'shell__result--hidden': !canInput }">
+    <div :class="{ 'shell__result--hidden': !canInput }" class="shell__result">
       <div class="shell__prompt">
         <i class="material-icons">chevron_right</i>
       </div>
       <pre
-        tabindex="0"
         ref="input"
         class="shell__text"
         contenteditable="true"
+        tabindex="0"
         @keydown.prevent.38="historyUp"
         @keydown.prevent.40="historyDown"
         @keypress.prevent.enter="submit"
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState, mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 import { commands } from "@/api";
 
 export default {

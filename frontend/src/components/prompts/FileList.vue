@@ -2,16 +2,16 @@
   <div>
     <ul class="file-list">
       <li
-        @click="itemClick"
-        @touchstart="touchstart"
-        @dblclick="next"
-        role="button"
-        tabindex="0"
+        v-for="item in items"
+        :key="item.name"
         :aria-label="item.name"
         :aria-selected="selected == item.url"
-        :key="item.name"
-        v-for="item in items"
         :data-url="item.url"
+        role="button"
+        tabindex="0"
+        @click="itemClick"
+        @dblclick="next"
+        @touchstart="touchstart"
       >
         {{ item.name }}
       </li>

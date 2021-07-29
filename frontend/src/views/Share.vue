@@ -1,18 +1,18 @@
 <template>
   <div>
-    <header-bar showMenu showLogo>
+    <header-bar showLogo showMenu>
       <title />
 
       <action
         v-if="selectedCount"
-        icon="file_download"
-        :label="$t('buttons.download')"
-        @action="download"
         :counter="selectedCount"
+        :label="$t('buttons.download')"
+        icon="file_download"
+        @action="download"
       />
       <action
-        icon="check_circle"
         :label="$t('buttons.selectMultiple')"
+        icon="check_circle"
         @action="toggleMultipleSelection"
       />
     </header-bar>
@@ -31,7 +31,7 @@
     </div>
     <div v-else-if="error">
       <div v-if="error.message === '401'">
-        <div class="card floating" id="password">
+        <div id="password" class="card floating">
           <div v-if="attemptedPasswordLogin" class="share__wrong__password">
             {{ $t("login.wrongCredentials") }}
           </div>
@@ -41,19 +41,19 @@
 
           <div class="card-content">
             <input
-              v-focus
-              type="password"
-              :placeholder="$t('login.password')"
               v-model="password"
+              v-focus
+              :placeholder="$t('login.password')"
+              type="password"
               @keyup.enter="fetchData"
             />
           </div>
           <div class="card-action">
             <button
-              class="button button--flat"
-              @click="fetchData"
               :aria-label="$t('buttons.submit')"
               :title="$t('buttons.submit')"
+              class="button button--flat"
+              @click="fetchData"
             >
               {{ $t("buttons.submit") }}
             </button>
@@ -78,24 +78,24 @@
           <div class="share__box__element">
             <strong>{{ $t("prompts.displayName") }}</strong> {{ req.name }}
           </div>
-          <div class="share__box__element" :title="modTime">
+          <div :title="modTime" class="share__box__element">
             <strong>{{ $t("prompts.lastModified") }}:</strong> {{ humanTime }}
           </div>
           <div class="share__box__element">
             <strong>{{ $t("prompts.size") }}:</strong> {{ humanSize }}
           </div>
           <div class="share__box__element share__box__center">
-            <a target="_blank" :href="link" class="button button--flat">
+            <a :href="link" class="button button--flat" target="_blank">
               <div>
                 <i class="material-icons">file_download</i
                 >{{ $t("buttons.download") }}
               </div>
             </a>
             <a
-              target="_blank"
+              v-if="!req.isDir"
               :href="link + '?inline=true'"
               class="button button--flat"
-              v-if="!req.isDir"
+              target="_blank"
             >
               <div>
                 <i class="material-icons">open_in_new</i
@@ -104,28 +104,28 @@
             </a>
           </div>
           <div class="share__box__element share__box__center">
-            <qrcode-vue :value="fullLink" size="200" level="M"></qrcode-vue>
+            <qrcode-vue :value="fullLink" level="M" size="200"></qrcode-vue>
           </div>
         </div>
         <div
           v-if="req.isDir && req.items.length > 0"
           class="share__box share__box__items"
         >
-          <div class="share__box__header" v-if="req.isDir">
+          <div v-if="req.isDir" class="share__box__header">
             {{ $t("files.files") }}
           </div>
           <div id="listing" class="list">
             <item
               v-for="item in req.items.slice(0, this.showLimit)"
               :key="base64(item.name)"
-              v-bind:index="item.index"
-              v-bind:name="item.name"
-              v-bind:isDir="item.isDir"
-              v-bind:url="item.url"
-              v-bind:modified="item.modified"
-              v-bind:type="item.type"
-              v-bind:size="item.size"
               readOnly
+              v-bind:index="item.index"
+              v-bind:isDir="item.isDir"
+              v-bind:modified="item.modified"
+              v-bind:name="item.name"
+              v-bind:size="item.size"
+              v-bind:type="item.type"
+              v-bind:url="item.url"
             >
             </item>
             <div
@@ -139,17 +139,17 @@
             </div>
 
             <div
-              :class="{ active: $store.state.multiple }"
               id="multiple-selection"
+              :class="{ active: $store.state.multiple }"
             >
               <p>{{ $t("files.multipleSelectionEnabled") }}</p>
               <div
-                @click="$store.commit('multiple', false)"
-                tabindex="0"
-                role="button"
-                :title="$t('files.clear')"
                 :aria-label="$t('files.clear')"
+                :title="$t('files.clear')"
                 class="action"
+                role="button"
+                tabindex="0"
+                @click="$store.commit('multiple', false)"
               >
                 <i class="material-icons">clear</i>
               </div>
@@ -171,7 +171,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 import { pub as api } from "@/api";
 import { baseURL } from "@/utils/constants";
 import filesize from "filesize";

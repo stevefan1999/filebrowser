@@ -4,7 +4,7 @@
     <p class="small">
       {{ $t("settings.userCommandsHelp") }} <i>git svn hg</i>.
     </p>
-    <input class="input input--block" type="text" v-model.trim="raw" />
+    <input v-model.trim="raw" class="input input--block" type="text" />
   </div>
 </template>
 

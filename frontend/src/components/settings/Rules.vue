@@ -1,22 +1,22 @@
 <template>
   <form class="rules small">
     <div v-for="(rule, index) in rules" :key="index">
-      <input type="checkbox" v-model="rule.regex" /><label>Regex</label>
-      <input type="checkbox" v-model="rule.allow" /><label>Allow</label>
+      <input v-model="rule.regex" type="checkbox" /><label>Regex</label>
+      <input v-model="rule.allow" type="checkbox" /><label>Allow</label>
 
       <input
-        @keypress.enter.prevent
-        type="text"
         v-if="rule.regex"
         v-model="rule.regexp.raw"
         :placeholder="$t('settings.insertRegex')"
+        type="text"
+        @keypress.enter.prevent
       />
       <input
-        @keypress.enter.prevent
-        type="text"
         v-else
         v-model="rule.path"
         :placeholder="$t('settings.insertPath')"
+        type="text"
+        @keypress.enter.prevent
       />
 
       <button class="button button--red" @click="remove($event, index)">
@@ -25,7 +25,7 @@
     </div>
 
     <div>
-      <button class="button" @click="create" default="false">
+      <button class="button" default="false" @click="create">
         {{ $t("buttons.new") }}
       </button>
     </div>

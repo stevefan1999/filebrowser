@@ -1,4 +1,4 @@
-import { fetchURL, fetchJSON } from "./utils";
+import { fetchJSON, fetchURL } from "./utils";
 
 export function get() {
   return fetchJSON(`/api/settings`, {});

@@ -8,58 +8,58 @@
 
         <div class="card-content">
           <p>
-            <input type="checkbox" v-model="hideDotfiles" />
+            <input v-model="hideDotfiles" type="checkbox" />
             {{ $t("settings.hideDotfiles") }}
           </p>
           <p>
-            <input type="checkbox" v-model="singleClick" />
+            <input v-model="singleClick" type="checkbox" />
             {{ $t("settings.singleClick") }}
           </p>
           <h3>{{ $t("settings.language") }}</h3>
           <languages
-            class="input input--block"
             :locale.sync="locale"
+            class="input input--block"
           ></languages>
         </div>
 
         <div class="card-action">
           <input
+            :value="$t('buttons.update')"
             class="button button--flat"
             type="submit"
-            :value="$t('buttons.update')"
           />
         </div>
       </form>
     </div>
 
     <div class="column">
-      <form class="card" v-if="!user.lockPassword" @submit="updatePassword">
+      <form v-if="!user.lockPassword" class="card" @submit="updatePassword">
         <div class="card-title">
           <h2>{{ $t("settings.changePassword") }}</h2>
         </div>
 
         <div class="card-content">
           <input
-            :class="passwordClass"
-            type="password"
-            :placeholder="$t('settings.newPassword')"
             v-model="password"
+            :class="passwordClass"
+            :placeholder="$t('settings.newPassword')"
             name="password"
+            type="password"
           />
           <input
-            :class="passwordClass"
-            type="password"
-            :placeholder="$t('settings.newPasswordConfirm')"
             v-model="passwordConf"
+            :class="passwordClass"
+            :placeholder="$t('settings.newPasswordConfirm')"
             name="password"
+            type="password"
           />
         </div>
 
         <div class="card-action">
           <input
+            :value="$t('buttons.update')"
             class="button button--flat"
             type="submit"
-            :value="$t('buttons.update')"
           />
         </div>
       </form>
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import { users as api } from "@/api";
 import Languages from "@/components/settings/Languages";
 

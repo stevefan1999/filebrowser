@@ -9,7 +9,7 @@
         {{ $t("prompts.filesSelected", { count: selected.length }) }}
       </p>
 
-      <p class="break-word" v-if="selected.length < 2">
+      <p v-if="selected.length < 2" class="break-word">
         <strong>{{ $t("prompts.displayName") }}</strong> {{ name }}
       </p>
       <p v-if="!dir || selected.length > 1">
@@ -67,11 +67,11 @@
 
     <div class="card-action">
       <button
-        type="submit"
-        @click="$store.commit('closeHovers')"
-        class="button button--flat"
         :aria-label="$t('buttons.ok')"
         :title="$t('buttons.ok')"
+        class="button button--flat"
+        type="submit"
+        @click="$store.commit('closeHovers')"
       >
         {{ $t("buttons.ok") }}
       </button>
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import filesize from "filesize";
 import moment from "moment";
 import { files as api } from "@/api";

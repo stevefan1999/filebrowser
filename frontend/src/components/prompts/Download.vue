@@ -1,5 +1,5 @@
 <template>
-  <div class="card floating" id="download">
+  <div id="download" class="card floating">
     <div class="card-title">
       <h2>{{ $t("prompts.download") }}</h2>
     </div>
@@ -10,9 +10,9 @@
       <button
         v-for="(ext, format) in formats"
         :key="format"
+        v-focus
         class="button button--block"
         @click="showConfirm(format)"
-        v-focus
       >
         {{ ext }}
       </button>

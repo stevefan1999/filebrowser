@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import Sidebar from "@/components/Sidebar";
 import Prompts from "@/components/prompts/Prompts";
 import Shell from "@/components/Shell";

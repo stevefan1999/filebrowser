@@ -3,48 +3,48 @@
     <p v-if="!isDefault">
       <label for="username">{{ $t("settings.username") }}</label>
       <input
+        id="username"
+        v-model="user.username"
         class="input input--block"
         type="text"
-        v-model="user.username"
-        id="username"
       />
     </p>
 
     <p v-if="!isDefault">
       <label for="password">{{ $t("settings.password") }}</label>
       <input
+        id="password"
+        v-model="user.password"
+        :placeholder="passwordPlaceholder"
         class="input input--block"
         type="password"
-        :placeholder="passwordPlaceholder"
-        v-model="user.password"
-        id="password"
       />
     </p>
 
     <p>
       <label for="scope">{{ $t("settings.scope") }}</label>
       <input
+        id="scope"
+        v-model="user.scope"
         class="input input--block"
         type="text"
-        v-model="user.scope"
-        id="scope"
       />
     </p>
 
     <p>
       <label for="locale">{{ $t("settings.language") }}</label>
       <languages
-        class="input input--block"
         id="locale"
         :locale.sync="user.locale"
+        class="input input--block"
       ></languages>
     </p>
 
     <p v-if="!isDefault">
       <input
-        type="checkbox"
-        :disabled="user.perm.admin"
         v-model="user.lockPassword"
+        :disabled="user.perm.admin"
+        type="checkbox"
       />
       {{ $t("settings.lockPassword") }}
     </p>

@@ -3,9 +3,9 @@
     <img v-if="showLogo !== undefined" :src="logoURL" />
     <action
       v-if="showMenu !== undefined"
+      :label="$t('buttons.toggleSidebar')"
       class="menu-button"
       icon="menu"
-      :label="$t('buttons.toggleSidebar')"
       @action="openSidebar()"
     />
 
@@ -18,14 +18,14 @@
     <action
       v-if="this.$slots.actions"
       id="more"
-      icon="more_vert"
       :label="$t('buttons.more')"
+      icon="more_vert"
       @action="$store.commit('showHover', 'more')"
     />
 
     <div
-      class="overlay"
       v-show="this.$store.state.show == 'more'"
+      class="overlay"
       @click="$store.commit('closeHovers')"
     />
   </header>

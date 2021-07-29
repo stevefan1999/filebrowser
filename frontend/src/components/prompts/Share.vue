@@ -1,5 +1,5 @@
 <template>
-  <div class="card floating share__promt__card" id="share">
+  <div id="share" class="card floating share__promt__card">
     <div class="card-title">
       <h2>{{ $t("buttons.share") }}</h2>
     </div>
@@ -17,27 +17,27 @@
           <tr v-for="link in links" :key="link.hash">
             <td>{{ link.hash }}</td>
             <td>
-              <template v-if="link.expire !== 0">{{
-                humanTime(link.expire)
-              }}</template>
+              <template v-if="link.expire !== 0"
+                >{{ humanTime(link.expire) }}
+              </template>
               <template v-else>{{ $t("permanent") }}</template>
             </td>
             <td class="small">
               <button
-                class="action copy-clipboard"
-                :data-clipboard-text="buildLink(link.hash)"
                 :aria-label="$t('buttons.copyToClipboard')"
+                :data-clipboard-text="buildLink(link.hash)"
                 :title="$t('buttons.copyToClipboard')"
+                class="action copy-clipboard"
               >
                 <i class="material-icons">content_paste</i>
               </button>
             </td>
             <td class="small">
               <button
-                class="action"
-                @click="deleteLink($event, link)"
                 :aria-label="$t('buttons.delete')"
                 :title="$t('buttons.delete')"
+                class="action"
+                @click="deleteLink($event, link)"
               >
                 <i class="material-icons">delete</i>
               </button>
@@ -48,18 +48,18 @@
 
       <div class="card-action">
         <button
-          class="button button--flat button--grey"
-          @click="$store.commit('closeHovers')"
           :aria-label="$t('buttons.close')"
           :title="$t('buttons.close')"
+          class="button button--flat button--grey"
+          @click="$store.commit('closeHovers')"
         >
           {{ $t("buttons.close") }}
         </button>
         <button
-          class="button button--flat button--blue"
-          @click="() => switchListing()"
           :aria-label="$t('buttons.new')"
           :title="$t('buttons.new')"
+          class="button button--flat button--blue"
+          @click="() => switchListing()"
         >
           {{ $t("buttons.new") }}
         </button>
@@ -72,13 +72,13 @@
         <div class="input-group input">
           <input
             v-focus
-            type="number"
+            v-model.trim="time"
             max="2147483647"
             min="1"
+            type="number"
             @keyup.enter="submit"
-            v-model.trim="time"
           />
-          <select class="right" v-model="unit" :aria-label="$t('time.unit')">
+          <select v-model="unit" :aria-label="$t('time.unit')" class="right">
             <option value="seconds">{{ $t("time.seconds") }}</option>
             <option value="minutes">{{ $t("time.minutes") }}</option>
             <option value="hours">{{ $t("time.hours") }}</option>
@@ -87,26 +87,26 @@
         </div>
         <p>{{ $t("prompts.optionalPassword") }}</p>
         <input
+          v-model.trim="password"
           class="input input--block"
           type="password"
-          v-model.trim="password"
         />
       </div>
 
       <div class="card-action">
         <button
-          class="button button--flat button--grey"
-          @click="() => switchListing()"
           :aria-label="$t('buttons.cancel')"
           :title="$t('buttons.cancel')"
+          class="button button--flat button--grey"
+          @click="() => switchListing()"
         >
           {{ $t("buttons.cancel") }}
         </button>
         <button
-          class="button button--flat button--blue"
-          @click="submit"
           :aria-label="$t('buttons.share')"
           :title="$t('buttons.share')"
+          class="button button--flat button--blue"
+          @click="submit"
         >
           {{ $t("buttons.share") }}
         </button>
@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { share as api } from "@/api";
 import { baseURL } from "@/utils/constants";
 import moment from "moment";

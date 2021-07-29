@@ -10,29 +10,29 @@
         >:
       </p>
       <input
-        class="input input--block"
         v-focus
+        v-model.trim="name"
+        class="input input--block"
         type="text"
         @keyup.enter="submit"
-        v-model.trim="name"
       />
     </div>
 
     <div class="card-action">
       <button
-        class="button button--flat button--grey"
-        @click="$store.commit('closeHovers')"
         :aria-label="$t('buttons.cancel')"
         :title="$t('buttons.cancel')"
+        class="button button--flat button--grey"
+        @click="$store.commit('closeHovers')"
       >
         {{ $t("buttons.cancel") }}
       </button>
       <button
-        @click="submit"
-        class="button button--flat"
-        type="submit"
         :aria-label="$t('buttons.rename')"
         :title="$t('buttons.rename')"
+        class="button button--flat"
+        type="submit"
+        @click="submit"
       >
         {{ $t("buttons.rename") }}
       </button>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import url from "@/utils/url";
 import { files as api } from "@/api";
 

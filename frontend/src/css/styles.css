@@ -17,6 +17,7 @@
   color: var(--blue);
 }
 
+
 main .spinner {
   display: block;
   text-align: center;
@@ -214,7 +215,7 @@ main .spinner .bounce2 {
   color: rgba(255, 255, 255, 0.5)
 }
 
-#previewer>button {
+#previewer > button {
   margin: 0;
   position: fixed;
   top: calc(50% + 1.85em);
@@ -229,20 +230,20 @@ main .spinner .bounce2 {
   transition: 0.2s ease all;
 }
 
-#previewer>button.hidden {
+#previewer > button.hidden {
   opacity: 0;
   visibility: hidden;
 }
 
-#previewer>button>i {
+#previewer > button > i {
   padding: 0.4em;
 }
 
-#previewer>button:first-of-type {
+#previewer > button:first-of-type {
   left: 0.5em;
 }
 
-#previewer>button:last-of-type {
+#previewer > button:last-of-type {
   right: 0.5em;
 }
 
@@ -301,7 +302,7 @@ main .spinner .bounce2 {
 
 .noty_buttons button {
   background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 0 0;
   font-size: 14px;
 }
@@ -353,7 +354,7 @@ main .spinner .bounce2 {
 }
 
 .rules input[type="text"] {
-  border: 1px solid#ddd;
+  border: 1px solid #ddd;
   padding: .2rem;
 }
 

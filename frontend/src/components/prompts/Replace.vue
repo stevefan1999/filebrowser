@@ -10,18 +10,18 @@
 
     <div class="card-action">
       <button
-        class="button button--flat button--grey"
-        @click="$store.commit('closeHovers')"
         :aria-label="$t('buttons.cancel')"
         :title="$t('buttons.cancel')"
+        class="button button--flat button--grey"
+        @click="$store.commit('closeHovers')"
       >
         {{ $t("buttons.cancel") }}
       </button>
       <button
-        class="button button--flat button--red"
-        @click="showConfirm"
         :aria-label="$t('buttons.replace')"
         :title="$t('buttons.replace')"
+        class="button button--flat button--red"
+        @click="showConfirm"
       >
         {{ $t("buttons.replace") }}
       </button>

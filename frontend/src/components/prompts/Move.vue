@@ -10,19 +10,19 @@
 
     <div class="card-action">
       <button
-        class="button button--flat button--grey"
-        @click="$store.commit('closeHovers')"
         :aria-label="$t('buttons.cancel')"
         :title="$t('buttons.cancel')"
+        class="button button--flat button--grey"
+        @click="$store.commit('closeHovers')"
       >
         {{ $t("buttons.cancel") }}
       </button>
       <button
+        :aria-label="$t('buttons.move')"
+        :disabled="$route.path === dest"
+        :title="$t('buttons.move')"
         class="button button--flat"
         @click="move"
-        :disabled="$route.path === dest"
-        :aria-label="$t('buttons.move')"
-        :title="$t('buttons.move')"
       >
         {{ $t("buttons.move") }}
       </button>

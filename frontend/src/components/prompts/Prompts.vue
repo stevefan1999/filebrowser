@@ -1,7 +1,7 @@
 <template>
   <div>
-    <component ref="currentComponent" :is="currentComponent"></component>
-    <div v-show="showOverlay" @click="resetPrompts" class="overlay"></div>
+    <component :is="currentComponent" ref="currentComponent"></component>
+    <div v-show="showOverlay" class="overlay" @click="resetPrompts"></div>
   </div>
 </template>
 

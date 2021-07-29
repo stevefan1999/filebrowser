@@ -1,16 +1,16 @@
 <template>
   <div
+    :aria-label="name"
+    :aria-selected="isSelected"
+    :data-dir="isDir"
+    :draggable="isDraggable"
     class="item"
     role="button"
     tabindex="0"
-    :draggable="isDraggable"
-    @dragstart="dragStart"
-    @dragover="dragOver"
-    @drop="drop"
     @click="itemClick"
-    :data-dir="isDir"
-    :aria-label="name"
-    :aria-selected="isSelected"
+    @dragover="dragOver"
+    @dragstart="dragStart"
+    @drop="drop"
   >
     <div>
       <img
@@ -24,7 +24,7 @@
       <p class="name">{{ name }}</p>
 
       <p v-if="isDir" class="size" data-order="-1">&mdash;</p>
-      <p v-else class="size" :data-order="humanSize()">{{ humanSize() }}</p>
+      <p v-else :data-order="humanSize()" class="size">{{ humanSize() }}</p>
 
       <p class="modified">
         <time :datetime="modified">{{ humanTime() }}</time>
@@ -35,7 +35,7 @@
 
 <script>
 import { baseURL, enableThumbs } from "@/utils/constants";
-import { mapMutations, mapGetters, mapState } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 import filesize from "filesize";
 import moment from "moment";
 import { files as api } from "@/api";

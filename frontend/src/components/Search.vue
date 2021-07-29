@@ -1,25 +1,25 @@
 <template>
-  <div id="search" @click="open" v-bind:class="{ active, ongoing }">
+  <div id="search" v-bind:class="{ active, ongoing }" @click="open">
     <div id="input">
       <button
         v-if="active"
-        class="action"
-        @click="close"
         :aria-label="$t('buttons.close')"
         :title="$t('buttons.close')"
+        class="action"
+        @click="close"
       >
         <i class="material-icons">arrow_back</i>
       </button>
       <i v-else class="material-icons">search</i>
       <input
+        ref="input"
+        v-model.trim="value"
+        :aria-label="$t('search.search')"
+        :autofocus="active"
+        :placeholder="$t('search.search')"
         type="text"
         @keyup.exact="keyup"
         @keyup.enter="submit"
-        ref="input"
-        :autofocus="active"
-        v-model.trim="value"
-        :aria-label="$t('search.search')"
-        :placeholder="$t('search.search')"
       />
     </div>
 
@@ -33,12 +33,12 @@
               <h3>{{ $t("search.types") }}</h3>
               <div>
                 <div
-                  tabindex="0"
                   v-for="(v, k) in boxes"
                   :key="k"
-                  role="button"
-                  @click="init('type:' + k)"
                   :aria-label="$t('search.' + v.label)"
+                  role="button"
+                  tabindex="0"
+                  @click="init('type:' + k)"
                 >
                   <i class="material-icons">{{ v.icon }}</i>
                   <p>{{ $t("search." + v.label) }}</p>
@@ -49,7 +49,7 @@
         </template>
         <ul v-show="results.length > 0">
           <li v-for="(s, k) in filteredResults" :key="k">
-            <router-link @click.native="close" :to="s.url">
+            <router-link :to="s.url" @click.native="close">
               <i v-if="s.dir" class="material-icons">folder</i>
               <i v-else class="material-icons">insert_drive_file</i>
               <span>./{{ s.path }}</span>
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 import url from "@/utils/url";
 import { search } from "@/api";
 

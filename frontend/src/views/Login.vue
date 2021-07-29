@@ -6,33 +6,33 @@
       <div v-if="error !== ''" class="wrong">{{ error }}</div>
 
       <input
-        class="input input--block"
-        type="text"
         v-model="username"
         :placeholder="$t('login.username')"
+        class="input input--block"
+        type="text"
       />
       <input
-        class="input input--block"
-        type="password"
         v-model="password"
         :placeholder="$t('login.password')"
+        class="input input--block"
+        type="password"
       />
       <input
-        class="input input--block"
         v-if="createMode"
-        type="password"
         v-model="passwordConfirm"
         :placeholder="$t('login.passwordConfirm')"
+        class="input input--block"
+        type="password"
       />
 
       <div v-if="recaptcha" id="recaptcha"></div>
       <input
+        :value="createMode ? $t('login.signup') : $t('login.submit')"
         class="button button--block"
         type="submit"
-        :value="createMode ? $t('login.signup') : $t('login.submit')"
       />
 
-      <p @click="toggleMode" v-if="signup">
+      <p v-if="signup" @click="toggleMode">
         {{
           createMode ? $t("login.loginInstead") : $t("login.createAnAccount")
         }}
@@ -44,8 +44,8 @@
 <script>
 import * as auth from "@/utils/auth";
 import {
-  name,
   logoURL,
+  name,
   recaptcha,
   recaptchaKey,
   signup,

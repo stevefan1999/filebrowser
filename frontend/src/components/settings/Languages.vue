@@ -1,5 +1,5 @@
 <template>
-  <select v-on:change="change" :value="locale">
+  <select :value="locale" v-on:change="change">
     <option v-for="(language, value) in locales" :key="value" :value="value">
       {{ $t("languages." + language) }}
     </option>

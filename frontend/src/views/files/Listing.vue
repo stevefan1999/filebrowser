@@ -1,11 +1,12 @@
 <template>
   <div>
-    <header-bar showMenu showLogo>
-      <search /> <title />
+    <header-bar showLogo showMenu>
+      <search />
+      <title />
       <action
+        :label="$t('buttons.search')"
         class="search-button"
         icon="search"
-        :label="$t('buttons.search')"
         @action="openSearch()"
       />
 
@@ -13,43 +14,43 @@
         <template v-if="!isMobile">
           <action
             v-if="headerButtons.share"
-            icon="share"
             :label="$t('buttons.share')"
+            icon="share"
             show="share"
           />
           <action
             v-if="headerButtons.rename"
-            icon="mode_edit"
             :label="$t('buttons.rename')"
+            icon="mode_edit"
             show="rename"
           />
           <action
             v-if="headerButtons.copy"
             id="copy-button"
-            icon="content_copy"
             :label="$t('buttons.copyFile')"
+            icon="content_copy"
             show="copy"
           />
           <action
             v-if="headerButtons.move"
             id="move-button"
-            icon="forward"
             :label="$t('buttons.moveFile')"
+            icon="forward"
             show="move"
           />
           <action
             v-if="headerButtons.delete"
             id="delete-button"
-            icon="delete"
             :label="$t('buttons.delete')"
+            icon="delete"
             show="delete"
           />
         </template>
 
         <action
           v-if="headerButtons.shell"
-          icon="code"
           :label="$t('buttons.shell')"
+          icon="code"
           @action="$store.commit('toggleShell')"
         />
         <action
@@ -59,22 +60,22 @@
         />
         <action
           v-if="headerButtons.download"
-          icon="file_download"
-          :label="$t('buttons.download')"
-          @action="download"
           :counter="selectedCount"
+          :label="$t('buttons.download')"
+          icon="file_download"
+          @action="download"
         />
         <action
           v-if="headerButtons.upload"
-          icon="file_upload"
           id="upload-button"
           :label="$t('buttons.upload')"
+          icon="file_upload"
           @action="upload"
         />
-        <action icon="info" :label="$t('buttons.info')" show="info" />
+        <action :label="$t('buttons.info')" icon="info" show="info" />
         <action
-          icon="check_circle"
           :label="$t('buttons.selectMultiple')"
+          icon="check_circle"
           @action="toggleMultipleSelection"
         />
       </template>
@@ -84,32 +85,32 @@
       <span v-if="selectedCount > 0">{{ selectedCount }} selected</span>
       <action
         v-if="headerButtons.share"
-        icon="share"
         :label="$t('buttons.share')"
+        icon="share"
         show="share"
       />
       <action
         v-if="headerButtons.rename"
-        icon="mode_edit"
         :label="$t('buttons.rename')"
+        icon="mode_edit"
         show="rename"
       />
       <action
         v-if="headerButtons.copy"
-        icon="content_copy"
         :label="$t('buttons.copyFile')"
+        icon="content_copy"
         show="copy"
       />
       <action
         v-if="headerButtons.move"
-        icon="forward"
         :label="$t('buttons.moveFile')"
+        icon="forward"
         show="move"
       />
       <action
         v-if="headerButtons.delete"
-        icon="delete"
         :label="$t('buttons.delete')"
+        icon="delete"
         show="delete"
       />
     </div>
@@ -131,19 +132,19 @@
           <span>{{ $t("files.lonely") }}</span>
         </h2>
         <input
+          id="upload-input"
+          multiple
           style="display: none"
           type="file"
-          id="upload-input"
           @change="uploadInput($event)"
-          multiple
         />
         <input
+          id="upload-folder-input"
+          multiple
           style="display: none"
           type="file"
-          id="upload-folder-input"
-          @change="uploadInput($event)"
           webkitdirectory
-          multiple
+          @change="uploadInput($event)"
         />
       </div>
       <div v-else id="listing" ref="listing" :class="user.viewMode">
@@ -152,38 +153,38 @@
             <div></div>
             <div>
               <p
+                :aria-label="$t('files.sortByName')"
                 :class="{ active: nameSorted }"
+                :title="$t('files.sortByName')"
                 class="name"
                 role="button"
                 tabindex="0"
                 @click="sort('name')"
-                :title="$t('files.sortByName')"
-                :aria-label="$t('files.sortByName')"
               >
                 <span>{{ $t("files.name") }}</span>
                 <i class="material-icons">{{ nameIcon }}</i>
               </p>
 
               <p
+                :aria-label="$t('files.sortBySize')"
                 :class="{ active: sizeSorted }"
+                :title="$t('files.sortBySize')"
                 class="size"
                 role="button"
                 tabindex="0"
                 @click="sort('size')"
-                :title="$t('files.sortBySize')"
-                :aria-label="$t('files.sortBySize')"
               >
                 <span>{{ $t("files.size") }}</span>
                 <i class="material-icons">{{ sizeIcon }}</i>
               </p>
               <p
+                :aria-label="$t('files.sortByLastModified')"
                 :class="{ active: modifiedSorted }"
+                :title="$t('files.sortByLastModified')"
                 class="modified"
                 role="button"
                 tabindex="0"
                 @click="sort('modified')"
-                :title="$t('files.sortByLastModified')"
-                :aria-label="$t('files.sortByLastModified')"
               >
                 <span>{{ $t("files.lastModified") }}</span>
                 <i class="material-icons">{{ modifiedIcon }}</i>
@@ -198,12 +199,12 @@
             v-for="item in dirs"
             :key="base64(item.name)"
             v-bind:index="item.index"
-            v-bind:name="item.name"
             v-bind:isDir="item.isDir"
-            v-bind:url="item.url"
             v-bind:modified="item.modified"
-            v-bind:type="item.type"
+            v-bind:name="item.name"
             v-bind:size="item.size"
+            v-bind:type="item.type"
+            v-bind:url="item.url"
           >
           </item>
         </div>
@@ -214,41 +215,41 @@
             v-for="item in files"
             :key="base64(item.name)"
             v-bind:index="item.index"
-            v-bind:name="item.name"
             v-bind:isDir="item.isDir"
-            v-bind:url="item.url"
             v-bind:modified="item.modified"
-            v-bind:type="item.type"
+            v-bind:name="item.name"
             v-bind:size="item.size"
+            v-bind:type="item.type"
+            v-bind:url="item.url"
           >
           </item>
         </div>
 
         <input
+          id="upload-input"
+          multiple
           style="display: none"
           type="file"
-          id="upload-input"
           @change="uploadInput($event)"
-          multiple
         />
         <input
+          id="upload-folder-input"
+          multiple
           style="display: none"
           type="file"
-          id="upload-folder-input"
-          @change="uploadInput($event)"
           webkitdirectory
-          multiple
+          @change="uploadInput($event)"
         />
 
-        <div :class="{ active: $store.state.multiple }" id="multiple-selection">
+        <div id="multiple-selection" :class="{ active: $store.state.multiple }">
           <p>{{ $t("files.multipleSelectionEnabled") }}</p>
           <div
-            @click="$store.commit('multiple', false)"
-            tabindex="0"
-            role="button"
-            :title="$t('files.clear')"
             :aria-label="$t('files.clear')"
+            :title="$t('files.clear')"
             class="action"
+            role="button"
+            tabindex="0"
+            @click="$store.commit('multiple', false)"
           >
             <i class="material-icons">clear</i>
           </div>
@@ -260,8 +261,8 @@
 
 <script>
 import Vue from "vue";
-import { mapState, mapGetters, mapMutations } from "vuex";
-import { users, files as api } from "@/api";
+import { mapGetters, mapMutations, mapState } from "vuex";
+import { files as api, users } from "@/api";
 import { enableExec } from "@/utils/constants";
 import * as upload from "@/utils/upload";
 import css from "@/utils/css";

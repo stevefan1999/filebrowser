@@ -1,4 +1,4 @@
-import { fetchURL, fetchJSON, removePrefix } from "./utils";
+import { fetchJSON, fetchURL, removePrefix } from "./utils";
 
 export async function list() {
   return fetchJSON("/api/shares");

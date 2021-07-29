@@ -10,26 +10,26 @@
 
     <div class="card-action">
       <button
-        class="button button--flat button--grey"
-        @click="$store.commit('closeHovers')"
         :aria-label="$t('buttons.cancel')"
         :title="$t('buttons.cancel')"
+        class="button button--flat button--grey"
+        @click="$store.commit('closeHovers')"
       >
         {{ $t("buttons.cancel") }}
       </button>
       <button
-        class="button button--flat button--blue"
-        @click="(event) => showConfirm(event, 'rename')"
         :aria-label="$t('buttons.rename')"
         :title="$t('buttons.rename')"
+        class="button button--flat button--blue"
+        @click="(event) => showConfirm(event, 'rename')"
       >
         {{ $t("buttons.rename") }}
       </button>
       <button
-        class="button button--flat button--red"
-        @click="(event) => showConfirm(event, 'overwrite')"
         :aria-label="$t('buttons.replace')"
         :title="$t('buttons.replace')"
+        class="button button--flat button--red"
+        @click="(event) => showConfirm(event, 'overwrite')"
       >
         {{ $t("buttons.replace") }}
       </button>

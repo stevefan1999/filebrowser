@@ -11,18 +11,18 @@
 
     <div class="card-action">
       <button
-        class="button button--flat button--grey"
-        @click="$store.commit('closeHovers')"
         :aria-label="$t('buttons.cancel')"
         :title="$t('buttons.cancel')"
+        class="button button--flat button--grey"
+        @click="$store.commit('closeHovers')"
       >
         {{ $t("buttons.cancel") }}
       </button>
       <button
-        class="button button--flat"
-        @click="copy"
         :aria-label="$t('buttons.copy')"
         :title="$t('buttons.copy')"
+        class="button button--flat"
+        @click="copy"
       >
         {{ $t("buttons.copy") }}
       </button>

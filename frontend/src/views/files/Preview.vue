@@ -5,48 +5,48 @@
     @touchstart="toggleNavigation"
   >
     <header-bar>
-      <action icon="close" :label="$t('buttons.close')" @action="close()" />
+      <action :label="$t('buttons.close')" icon="close" @action="close()" />
       <title>{{ name }}</title>
       <action
-        :disabled="loading"
         v-if="isResizeEnabled && req.type === 'image'"
+        :disabled="loading"
         :icon="fullSize ? 'photo_size_select_large' : 'hd'"
         @action="toggleSize"
       />
 
       <template #actions>
         <action
-          :disabled="loading"
           v-if="user.perm.rename"
-          icon="mode_edit"
+          :disabled="loading"
           :label="$t('buttons.rename')"
+          icon="mode_edit"
           show="rename"
         />
         <action
-          :disabled="loading"
           v-if="user.perm.delete"
-          icon="delete"
-          :label="$t('buttons.delete')"
-          @action="deleteFile"
           id="delete-button"
+          :disabled="loading"
+          :label="$t('buttons.delete')"
+          icon="delete"
+          @action="deleteFile"
         />
         <action
-          :disabled="loading"
           v-if="user.perm.download"
-          icon="file_download"
+          :disabled="loading"
           :label="$t('buttons.download')"
+          icon="file_download"
           @action="download"
         />
         <action
           :disabled="loading"
-          icon="info"
           :label="$t('buttons.info')"
+          icon="info"
           show="info"
         />
       </template>
     </header-bar>
 
-    <div class="loading delayed" v-if="loading">
+    <div v-if="loading" class="loading delayed">
       <div class="spinner">
         <div class="bounce1"></div>
         <div class="bounce2"></div>
@@ -59,26 +59,26 @@
         <audio
           v-else-if="req.type == 'audio'"
           ref="player"
+          :autoplay="autoPlay"
           :src="raw"
           controls
-          :autoplay="autoPlay"
           @play="autoPlay = true"
         ></audio>
         <video
           v-else-if="req.type == 'video'"
           ref="player"
+          :autoplay="autoPlay"
           :src="raw"
           controls
-          :autoplay="autoPlay"
           @play="autoPlay = true"
         >
           <track
-            kind="captions"
             v-for="(sub, index) in subtitles"
             :key="index"
-            :src="sub"
-            :label="'Subtitle ' + index"
             :default="index === 0"
+            :label="'Subtitle ' + index"
+            :src="sub"
+            kind="captions"
           />
           Sorry, your browser doesn't support embedded videos, but don't worry,
           you can <a :href="downloadUrl">download it</a>
@@ -86,8 +86,8 @@
         </video>
         <object
           v-else-if="req.extension.toLowerCase() == '.pdf'"
-          class="pdf"
           :data="raw"
+          class="pdf"
         ></object>
         <a v-else-if="req.type == 'blob'" :href="downloadUrl">
           <h2 class="message">
@@ -99,22 +99,22 @@
     </template>
 
     <button
-      @click="prev"
-      @mouseover="hoverNav = true"
-      @mouseleave="hoverNav = false"
-      :class="{ hidden: !hasPrevious || !showNav }"
       :aria-label="$t('buttons.previous')"
+      :class="{ hidden: !hasPrevious || !showNav }"
       :title="$t('buttons.previous')"
+      @click="prev"
+      @mouseleave="hoverNav = false"
+      @mouseover="hoverNav = true"
     >
       <i class="material-icons">chevron_left</i>
     </button>
     <button
-      @click="next"
-      @mouseover="hoverNav = true"
-      @mouseleave="hoverNav = false"
-      :class="{ hidden: !hasNext || !showNav }"
       :aria-label="$t('buttons.next')"
+      :class="{ hidden: !hasNext || !showNav }"
       :title="$t('buttons.next')"
+      @click="next"
+      @mouseleave="hoverNav = false"
+      @mouseover="hoverNav = true"
     >
       <i class="material-icons">chevron_right</i>
     </button>

@@ -69,11 +69,11 @@ nav .action {
   text-overflow: ellipsis;
 }
 
-nav>div {
+nav > div {
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-nav .action>* {
+nav .action > * {
   vertical-align: middle;
 }
 
@@ -102,7 +102,7 @@ main {
 }
 
 .breadcrumbs a:hover {
-  background-color: rgba(0,0,0, 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .breadcrumbs span a {

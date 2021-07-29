@@ -1,6 +1,6 @@
 <template>
   <errors v-if="error" :errorCode="error.message" />
-  <div class="row" v-else-if="!loading">
+  <div v-else-if="!loading" class="row">
     <div class="column">
       <form class="card" @submit.prevent="save">
         <div class="card-title">
@@ -9,12 +9,12 @@
 
         <div class="card-content">
           <p>
-            <input type="checkbox" v-model="settings.signup" />
+            <input v-model="settings.signup" type="checkbox" />
             {{ $t("settings.allowSignup") }}
           </p>
 
           <p>
-            <input type="checkbox" v-model="settings.createUserDir" />
+            <input v-model="settings.createUserDir" type="checkbox" />
             {{ $t("settings.createUserDir") }}
           </p>
 
@@ -26,29 +26,29 @@
             <h3>{{ $t("settings.executeOnShell") }}</h3>
             <p class="small">{{ $t("settings.executeOnShellDescription") }}</p>
             <input
-              class="input input--block"
-              type="text"
-              placeholder="bash -c, cmd /c, ..."
               v-model="settings.shell"
+              class="input input--block"
+              placeholder="bash -c, cmd /c, ..."
+              type="text"
             />
           </div>
 
           <h3>{{ $t("settings.branding") }}</h3>
 
-          <i18n path="settings.brandingHelp" tag="p" class="small">
+          <i18n class="small" path="settings.brandingHelp" tag="p">
             <a
               class="link"
-              target="_blank"
               href="https://filebrowser.org/configuration/custom-branding"
+              target="_blank"
               >{{ $t("settings.documentation") }}</a
             >
           </i18n>
 
           <p>
             <input
-              type="checkbox"
-              v-model="settings.branding.disableExternal"
               id="branding-links"
+              v-model="settings.branding.disableExternal"
+              type="checkbox"
             />
             {{ $t("settings.disableExternalLinks") }}
           </p>
@@ -56,19 +56,19 @@
           <p>
             <label for="theme">{{ $t("settings.themes.title") }}</label>
             <themes
-              class="input input--block"
-              :theme.sync="settings.branding.theme"
               id="theme"
+              :theme.sync="settings.branding.theme"
+              class="input input--block"
             ></themes>
           </p>
 
           <p>
             <label for="branding-name">{{ $t("settings.instanceName") }}</label>
             <input
+              id="branding-name"
+              v-model="settings.branding.name"
               class="input input--block"
               type="text"
-              v-model="settings.branding.name"
-              id="branding-name"
             />
           </p>
 
@@ -77,19 +77,19 @@
               $t("settings.brandingDirectoryPath")
             }}</label>
             <input
+              id="branding-files"
+              v-model="settings.branding.files"
               class="input input--block"
               type="text"
-              v-model="settings.branding.files"
-              id="branding-files"
             />
           </p>
         </div>
 
         <div class="card-action">
           <input
+            :value="$t('buttons.update')"
             class="button button--flat"
             type="submit"
-            :value="$t('buttons.update')"
           />
         </div>
       </form>
@@ -105,17 +105,17 @@
           <p class="small">{{ $t("settings.defaultUserDescription") }}</p>
 
           <user-form
-            :isNew="false"
             :isDefault="true"
+            :isNew="false"
             :user.sync="settings.defaults"
           />
         </div>
 
         <div class="card-action">
           <input
+            :value="$t('buttons.update')"
             class="button button--flat"
             type="submit"
-            :value="$t('buttons.update')"
           />
         </div>
       </form>
@@ -128,13 +128,13 @@
         </div>
 
         <div class="card-content">
-          <i18n path="settings.commandRunnerHelp" tag="p" class="small">
+          <i18n class="small" path="settings.commandRunnerHelp" tag="p">
             <code>FILE</code>
             <code>SCOPE</code>
             <a
               class="link"
-              target="_blank"
               href="https://filebrowser.org/configuration/command-runner"
+              target="_blank"
               >{{ $t("settings.documentation") }}</a
             >
           </i18n>
@@ -151,8 +151,8 @@
             </label>
             <div class="collapse">
               <textarea
-                class="input input--block input--textarea"
                 v-model.trim="command.value"
+                class="input input--block input--textarea"
               ></textarea>
             </div>
           </div>
@@ -160,9 +160,9 @@
 
         <div class="card-action">
           <input
+            :value="$t('buttons.update')"
             class="button button--flat"
             type="submit"
-            :value="$t('buttons.update')"
           />
         </div>
       </form>
@@ -171,7 +171,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import { settings as api } from "@/api";
 import { enableExec } from "@/utils/constants";
 import UserForm from "@/components/settings/UserForm";
