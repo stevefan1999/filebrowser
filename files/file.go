@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/hex"
+	"github.com/filebrowser/filebrowser/v2/fileutils"
 	"hash"
 	"io"
 	"log"
@@ -39,6 +40,13 @@ type FileInfo struct {
 	Content   string            `json:"content,omitempty"`
 	Checksums map[string]string `json:"checksums,omitempty"`
 	Token     string            `json:"token,omitempty"`
+	DiskStat  DiskStat          `json:"disk_stat,omitempty"`
+}
+
+type DiskStat struct {
+	Free  uint64 `json:"free,omitempty"`
+	Total uint64 `json:"total,omitempty"`
+	Used  uint64 `json:"used,omitempty"`
 }
 
 // FileOptions are the options when getting a file info.
@@ -66,16 +74,23 @@ func NewFileInfo(opts FileOptions) (*FileInfo, error) {
 		return nil, err
 	}
 
+	fullPath := afero.FullBaseFsPath(opts.Fs.(*afero.BasePathFs), opts.Path)
+	total, free, used, err := fileutils.GetDiskFreeSpaceForPath(fullPath)
+	if err != nil {
+		return nil, err
+	}
+
 	file := &FileInfo{
 		Fs:        opts.Fs,
 		Path:      opts.Path,
 		Name:      info.Name(),
+		Size:      info.Size(),
+		Extension: filepath.Ext(info.Name()),
 		ModTime:   info.ModTime(),
 		Mode:      info.Mode(),
 		IsDir:     info.IsDir(),
-		Size:      info.Size(),
-		Extension: filepath.Ext(info.Name()),
 		Token:     opts.Token,
+		DiskStat:  DiskStat{Free: free, Total: total, Used: used},
 	}
 
 	if opts.Expand {
