@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/wesovilabs/koazee"
 	"io/fs"
 	"log"
 	"net/http"
@@ -18,6 +17,7 @@ import (
 	"github.com/filebrowser/filebrowser/v2/settings"
 	"github.com/filebrowser/filebrowser/v2/storage"
 	"github.com/filebrowser/filebrowser/v2/version"
+	"github.com/wesovilabs/koazee"
 )
 
 func handleWithStaticData(w http.ResponseWriter, _ *http.Request, d *data, fSys fs.FS, file, contentType string) (int, error) {
@@ -132,7 +132,7 @@ func getStaticHandlers(store *storage.Storage, server *settings.Server, assetsFs
 
 		tryCompressedFile := func(suffix, encodingType string) (found bool, errCode int, err error) {
 			acceptedEncoding, err := acceptEncodings.Contains(encodingType)
-			if err := errors.Unwrap(err); err != nil {
+			if err = errors.Unwrap(err); err != nil {
 				return false, 0, err
 			}
 			if acceptedEncoding {

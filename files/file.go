@@ -6,7 +6,6 @@ import (
 	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/hex"
-	"github.com/filebrowser/filebrowser/v2/fileutils"
 	"hash"
 	"io"
 	"log"
@@ -21,6 +20,7 @@ import (
 	"github.com/spf13/afero"
 
 	"github.com/filebrowser/filebrowser/v2/errors"
+	"github.com/filebrowser/filebrowser/v2/fileutils"
 	"github.com/filebrowser/filebrowser/v2/rules"
 )
 

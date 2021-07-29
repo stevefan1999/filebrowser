@@ -127,8 +127,8 @@ func CommonPrefix(sep byte, paths ...string) string {
 	return string(c)
 }
 
-func GetDiskFreeSpaceForPath(path string) (uint64, uint64, uint64, error) {
-	di, err := disk.GetInfo(path)
+func GetDiskFreeSpaceForPath(filePath string) (uint64, uint64, uint64, error) {
+	di, err := disk.GetInfo(filePath)
 	if err != nil {
 		return 0, 0, 0, err
 	}
