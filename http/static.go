@@ -2,7 +2,9 @@ package http
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"github.com/wesovilabs/koazee"
 	"io/fs"
 	"log"
 	"net/http"
@@ -126,23 +128,47 @@ func getStaticHandlers(store *storage.Storage, server *settings.Server, assetsFs
 			}
 		}
 
-		if !strings.HasSuffix(r.URL.Path, ".js") {
-			http.FileServer(http.FS(assetsFs)).ServeHTTP(w, r)
+		acceptEncodings := koazee.StreamOf(strings.Split(r.Header["Accept-Encoding"][0], ",")).Map(strings.TrimSpace).Do()
+
+		tryCompressedFile := func(suffix, encodingType string) (found bool, errCode int, err error) {
+			acceptedEncoding, err := acceptEncodings.Contains(encodingType)
+			if err := errors.Unwrap(err); err != nil {
+				return false, 0, err
+			}
+			if acceptedEncoding {
+				fileContents, err := fs.ReadFile(assetsFs, r.URL.Path+suffix)
+				if err == nil {
+					w.Header().Set("Content-Encoding", encodingType)
+					if _, err := w.Write(fileContents); err != nil {
+						return true, http.StatusInternalServerError, err
+					}
+					return true, 0, nil
+				}
+			}
+			return false, 0, nil
+		}
+
+		if strings.HasSuffix(r.URL.Path, ".js") {
+			w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
+		}
+
+		found, errCode, err := tryCompressedFile(".br", "br")
+		if errCode != 0 || err != nil {
+			return errCode, err
+		}
+		if found {
 			return 0, nil
 		}
 
-		fileContents, err := fs.ReadFile(assetsFs, r.URL.Path+".gz")
-		if err != nil {
-			return http.StatusNotFound, err
+		found, errCode, err = tryCompressedFile(".gz", "gzip")
+		if errCode != 0 || err != nil {
+			return errCode, err
+		}
+		if found {
+			return 0, nil
 		}
 
-		w.Header().Set("Content-Encoding", "gzip")
-		w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
-
-		if _, err := w.Write(fileContents); err != nil {
-			return http.StatusInternalServerError, err
-		}
-
+		http.FileServer(http.FS(assetsFs)).ServeHTTP(w, r)
 		return 0, nil
 	}, "/static/", store, server)
 
