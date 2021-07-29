@@ -1,28 +1,16 @@
 export default function getRule(rules) {
-  for (let i = 0; i < rules.length; i++) {
-    rules[i] = rules[i].toLowerCase();
-  }
+  rules = rules.map((rule) => rule.toLowerCase());
 
-  let result = null;
-  let find = Array.prototype.find;
-
-  find.call(document.styleSheets, (styleSheet) => {
-    result = find.call(styleSheet.cssRules, (cssRule) => {
-      let found = false;
-
-      if (cssRule instanceof window.CSSStyleRule) {
-        for (let i = 0; i < rules.length; i++) {
-          if (cssRule.selectorText.toLowerCase() === rules[i]) {
-            found = true;
-          }
-        }
+  return [...document.styleSheets]
+    .flatMap((styleSheet) => {
+      try {
+        return [...styleSheet.cssRules];
+      } catch {
+        return [];
       }
-
-      return found;
-    });
-
-    return result != null;
-  });
-
-  return result;
+    })
+    .filter((cssRule) => cssRule instanceof window.CSSStyleRule)
+    .find(
+      (cssRule) => rules.indexOf(cssRule.selectorText.toLowerCase()) !== -1
+    );
 }
