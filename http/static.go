@@ -13,11 +13,12 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/wesovilabs/koazee"
+
 	"github.com/filebrowser/filebrowser/v2/auth"
 	"github.com/filebrowser/filebrowser/v2/settings"
 	"github.com/filebrowser/filebrowser/v2/storage"
 	"github.com/filebrowser/filebrowser/v2/version"
-	"github.com/wesovilabs/koazee"
 )
 
 func handleWithStaticData(w http.ResponseWriter, _ *http.Request, d *data, fSys fs.FS, file, contentType string) (int, error) {
@@ -128,31 +129,11 @@ func getStaticHandlers(store *storage.Storage, server *settings.Server, assetsFs
 			}
 		}
 
-		acceptEncodings := koazee.StreamOf(strings.Split(r.Header["Accept-Encoding"][0], ",")).Map(strings.TrimSpace).Do()
-
-		tryCompressedFile := func(suffix, encodingType string) (found bool, errCode int, err error) {
-			acceptedEncoding, err := acceptEncodings.Contains(encodingType)
-			if err = errors.Unwrap(err); err != nil {
-				return false, 0, err
-			}
-			if acceptedEncoding {
-				fileContents, err := fs.ReadFile(assetsFs, r.URL.Path+suffix)
-				if err == nil {
-					w.Header().Set("Content-Encoding", encodingType)
-					if _, err := w.Write(fileContents); err != nil {
-						return true, http.StatusInternalServerError, err
-					}
-					return true, 0, nil
-				}
-			}
-			return false, 0, nil
-		}
-
 		if strings.HasSuffix(r.URL.Path, ".js") {
 			w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
 		}
 
-		found, errCode, err := tryCompressedFile(".br", "br")
+		found, errCode, err := tryCompressedFile(".br", "br", assetsFs, r, w)
 		if errCode != 0 || err != nil {
 			return errCode, err
 		}
@@ -160,7 +141,7 @@ func getStaticHandlers(store *storage.Storage, server *settings.Server, assetsFs
 			return 0, nil
 		}
 
-		found, errCode, err = tryCompressedFile(".gz", "gzip")
+		found, errCode, err = tryCompressedFile(".gz", "gzip", assetsFs, r, w)
 		if errCode != 0 || err != nil {
 			return errCode, err
 		}
@@ -173,4 +154,29 @@ func getStaticHandlers(store *storage.Storage, server *settings.Server, assetsFs
 	}, "/static/", store, server)
 
 	return index, static
+}
+
+func tryCompressedFile(
+	suffix, encodingType string, assetsFs fs.FS, r *http.Request, w http.ResponseWriter,
+) (found bool, statusCode int, err error) {
+	acceptedEncodings := strings.Split(r.Header["Accept-Encoding"][0], ",")
+	acceptEncodings := koazee.StreamOf(acceptedEncodings).Map(strings.TrimSpace).Do()
+	acceptedEncoding, err := acceptEncodings.Contains(encodingType)
+	err = errors.Unwrap(err)
+	if err != nil {
+		return false, 0, err
+	}
+	if !acceptedEncoding {
+		return false, 0, nil
+	}
+	fileContents, err := fs.ReadFile(assetsFs, r.URL.Path+suffix)
+	if err != nil {
+		return false, 0, err
+	}
+	w.Header().Set("Content-Encoding", encodingType)
+	_, err = w.Write(fileContents)
+	if err != nil {
+		return true, http.StatusInternalServerError, err
+	}
+	return true, 0, nil
 }

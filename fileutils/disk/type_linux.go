@@ -43,7 +43,8 @@ var fsType2StringMap = map[string]string{
 
 // getFSType returns the filesystem type of the underlying mounted filesystem
 func getFSType(ftype int64) string {
-	fsTypeHex := strconv.FormatInt(ftype, 16)
+	base := 16
+	fsTypeHex := strconv.FormatInt(ftype, base)
 	fsTypeString, ok := fsType2StringMap[fsTypeHex]
 	if !ok {
 		return "UNKNOWN"

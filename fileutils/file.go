@@ -1,12 +1,14 @@
 package fileutils
 
 import (
-	"github.com/filebrowser/filebrowser/v2/fileutils/disk"
-	"github.com/spf13/afero"
 	"io"
 	"os"
 	"path"
 	"path/filepath"
+
+	"github.com/spf13/afero"
+
+	"github.com/filebrowser/filebrowser/v2/fileutils/disk"
 )
 
 // MoveFile moves file from src to dst.
@@ -127,7 +129,7 @@ func CommonPrefix(sep byte, paths ...string) string {
 	return string(c)
 }
 
-func GetDiskFreeSpaceForPath(filePath string) (uint64, uint64, uint64, error) {
+func GetDiskFreeSpaceForPath(filePath string) (total, free, remaining uint64, err error) {
 	di, err := disk.GetInfo(filePath)
 	if err != nil {
 		return 0, 0, 0, err

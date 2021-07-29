@@ -45,7 +45,8 @@ func GetInfo(path string) (info Info, err error) {
 	// XFS can show wrong values at times error out
 	// in such scenarios.
 	if info.Free > info.Total {
-		return info, fmt.Errorf("detected free space (%d) > total disk space (%d), fs corruption at (%s). please run 'fsck'", info.Free, info.Total, path)
+		format := "detected free space (%d) > total disk space (%d), fs corruption at (%s). please run 'fsck'"
+		return info, fmt.Errorf(format, info.Free, info.Total, path)
 	}
 	info.Used = info.Total - info.Free
 	return info, nil

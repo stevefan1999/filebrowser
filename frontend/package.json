@@ -8,7 +8,7 @@
     "lint": "npx vue-cli-service lint --no-fix",
     "build:dev": "vue-cli-service build --mode development --no-clean",
     "build:production": "vue-cli-service build --no-clean",
-    "clean": "del-cli dist/**/!(\\.gitignore)",
+    "clean": "del-cli \"dist/**/!(\\.gitignore)\"",
     "fix": "npx vue-cli-service lint",
     "watch": "run-s clean watch:*",
     "watch:vue": "vue-cli-service build --mode development --watch --no-clean"
