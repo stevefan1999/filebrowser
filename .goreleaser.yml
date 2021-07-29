@@ -31,16 +31,14 @@ build:
       goarch: arm
 
 archives:
-  -
-    name_template: "{{.Os}}-{{.Arch}}{{if .Arm}}v{{.Arm}}{{end}}-{{ .ProjectName }}"
+  - name_template: "{{.Os}}-{{.Arch}}{{if .Arm}}v{{.Arm}}{{end}}-{{ .ProjectName }}"
     format: tar.gz
     format_overrides:
       - goos: windows
         format: zip
 
 dockers:
-  -
-    dockerfile: Dockerfile
+  - dockerfile: Dockerfile
     use_buildx: true
     build_flag_templates:
       - "--pull"
@@ -53,12 +51,11 @@ dockers:
     goos: linux
     goarch: amd64
     image_templates:
-      - "filebrowser/filebrowser:{{ .Tag }}-amd64"
-      - "filebrowser/filebrowser:v{{ .Major }}-amd64"
+      - "19037626d/filebrowser:{{ .Tag }}-amd64"
+      - "19037626d/filebrowser:v{{ .Major }}-amd64"
     extra_files:
       - .docker.json
-  -
-    dockerfile: Dockerfile
+  - dockerfile: Dockerfile
     use_buildx: true
     build_flag_templates:
       - "--pull"
@@ -71,12 +68,11 @@ dockers:
     goos: linux
     goarch: arm64
     image_templates:
-      - "filebrowser/filebrowser:{{ .Tag }}-arm64"
-      - "filebrowser/filebrowser:v{{ .Major }}-arm64"
+      - "19037626d/filebrowser:{{ .Tag }}-arm64"
+      - "19037626d/filebrowser:v{{ .Major }}-arm64"
     extra_files:
       - .docker.json
-  -
-    dockerfile: Dockerfile
+  - dockerfile: Dockerfile
     use_buildx: true
     build_flag_templates:
       - "--pull"
@@ -90,12 +86,11 @@ dockers:
     goarch: arm
     goarm: '6'
     image_templates:
-      - "filebrowser/filebrowser:{{ .Tag }}-armv6"
-      - "filebrowser/filebrowser:v{{ .Major }}-armv6"
+      - "19037626d/filebrowser:{{ .Tag }}-armv6"
+      - "19037626d/filebrowser:v{{ .Major }}-armv6"
     extra_files:
       - .docker.json
-  -
-    dockerfile: Dockerfile
+  - dockerfile: Dockerfile
     use_buildx: true
     build_flag_templates:
       - "--pull"
@@ -109,29 +104,29 @@ dockers:
     goarch: arm
     goarm: '7'
     image_templates:
-      - "filebrowser/filebrowser:{{ .Tag }}-armv7"
-      - "filebrowser/filebrowser:v{{ .Major }}-armv7"
+      - "19037626d/filebrowser:{{ .Tag }}-armv7"
+      - "19037626d/filebrowser:v{{ .Major }}-armv7"
     extra_files:
       - .docker.json
 docker_manifests:
-  - name_template: "filebrowser/filebrowser:latest"
+  - name_template: "19037626d/filebrowser:latest"
     image_templates:
-      - "filebrowser/filebrowser:{{ .Tag }}-amd64"
-      - "filebrowser/filebrowser:{{ .Tag }}-arm64"
-      - "filebrowser/filebrowser:{{ .Tag }}-armv6"
-      - "filebrowser/filebrowser:{{ .Tag }}-armv7"
-  - name_template: "filebrowser/filebrowser:{{ .Tag }}"
+      - "19037626d/filebrowser:{{ .Tag }}-amd64"
+      - "19037626d/filebrowser:{{ .Tag }}-arm64"
+      - "19037626d/filebrowser:{{ .Tag }}-armv6"
+      - "19037626d/filebrowser:{{ .Tag }}-armv7"
+  - name_template: "19037626d/filebrowser:{{ .Tag }}"
     image_templates:
-      - "filebrowser/filebrowser:{{ .Tag }}-amd64"
-      - "filebrowser/filebrowser:{{ .Tag }}-arm64"
-      - "filebrowser/filebrowser:{{ .Tag }}-armv6"
-      - "filebrowser/filebrowser:{{ .Tag }}-armv7"
-  - name_template: "filebrowser/filebrowser:v{{ .Major }}"
+      - "19037626d/filebrowser:{{ .Tag }}-amd64"
+      - "19037626d/filebrowser:{{ .Tag }}-arm64"
+      - "19037626d/filebrowser:{{ .Tag }}-armv6"
+      - "19037626d/filebrowser:{{ .Tag }}-armv7"
+  - name_template: "19037626d/filebrowser:v{{ .Major }}"
     image_templates:
-      - "filebrowser/filebrowser:v{{ .Major }}-amd64"
-      - "filebrowser/filebrowser:v{{ .Major }}-arm64"
-      - "filebrowser/filebrowser:v{{ .Major }}-armv6"
-      - "filebrowser/filebrowser:v{{ .Major }}-armv7"
+      - "19037626d/filebrowser:v{{ .Major }}-amd64"
+      - "19037626d/filebrowser:v{{ .Major }}-arm64"
+      - "19037626d/filebrowser:v{{ .Major }}-armv6"
+      - "19037626d/filebrowser:v{{ .Major }}-armv7"
 brews:
   - name: filebrowser
     tap:
