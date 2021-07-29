@@ -1,11 +1,38 @@
 <template>
   <div>
-    <header-bar v-if="error || req.type == null" showMenu showLogo />
+    <header-bar v-if="error || req.type == null" showLogo showMenu />
 
-    <breadcrumbs base="/files" />
+    <b-row align-v="center">
+      <b-col sm="12" md="10">
+        <breadcrumbs base="/files" />
+      </b-col>
+      <b-col sm="12" md="2">
+        <b-row align-v="center">
+          <b-col sm="4"> Disk Volume:</b-col>
+          <b-col sm="8">
+            <b-progress
+              v-if="req.disk_stat"
+              :max="req.disk_stat.total"
+              :variant="diskBarVariant"
+              height="2rem"
+            >
+              <b-progress-bar
+                class="overflow-visible"
+                :value="req.disk_stat.used"
+              >
+                <span style="color: black">
+                  {{ prettyBytes(req.disk_stat.used) }} /
+                  {{ prettyBytes(req.disk_stat.total) }}
+                </span>
+              </b-progress-bar>
+            </b-progress>
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
 
     <errors v-if="error" :errorCode="error.message" />
-    <component v-else-if="currentView" :is="currentView"></component>
+    <component :is="currentView" v-else-if="currentView"></component>
     <div v-else>
       <h2 class="message delayed">
         <div class="spinner">
@@ -21,13 +48,15 @@
 
 <script>
 import { files as api } from "@/api";
-import { mapState, mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 import HeaderBar from "@/components/header/HeaderBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Errors from "@/views/Errors";
 import Preview from "@/views/files/Preview";
 import Listing from "@/views/files/Listing";
+import Editor from "@/views/files/Editor";
+import prettyBytes from "pretty-bytes";
 
 function clean(path) {
   return path.endsWith("/") ? path.slice(0, -1) : path;
@@ -41,12 +70,13 @@ export default {
     Errors,
     Preview,
     Listing,
-    Editor: () => import("@/views/files/Editor"),
+    Editor,
   },
   data: function () {
     return {
       error: null,
       width: window.innerWidth,
+      progress: 25,
     };
   },
   computed: {
@@ -66,6 +96,20 @@ export default {
       } else {
         return "preview";
       }
+    },
+    diskUsedPercentage() {
+      return this.req.disk_stat
+        ? (this.req.disk_stat.used / this.req.disk_stat.total).toFixed(2)
+        : 0;
+    },
+    diskBarVariant() {
+      if (this.diskUsedPercentage >= 0.75) {
+        return "danger";
+      }
+      if (this.diskUsedPercentage >= 0.5) {
+        return "warning";
+      }
+      return "info";
     },
   },
   created() {
@@ -93,6 +137,7 @@ export default {
   },
   methods: {
     ...mapMutations(["setLoading"]),
+    prettyBytes,
     async fetchData() {
       // Reset view information.
       this.$store.commit("setReload", false);
@@ -133,3 +178,10 @@ export default {
   },
 };
 </script>
+<style>
+.capacity {
+  border-bottom: 1px none;
+  /*display: flex;*/
+  align-items: center;
+}
+</style>

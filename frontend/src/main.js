@@ -1,3 +1,5 @@
+// import "@babel/polyfill";
+import "mutationobserver-shim";
 import "whatwg-fetch";
 import cssVars from "css-vars-ponyfill";
 import { sync } from "vuex-router-sync";
@@ -5,7 +7,8 @@ import store from "@/store";
 import router from "@/router";
 import i18n from "@/i18n";
 import Vue from "@/utils/vue";
-import { recaptcha, loginPage } from "@/utils/constants";
+import "./plugins/bootstrap-vue";
+import { loginPage, recaptcha } from "@/utils/constants";
 import { login, validateLogin } from "@/utils/auth";
 import App from "@/App";
 

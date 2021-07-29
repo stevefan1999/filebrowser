@@ -21,6 +21,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import "./css/styles.css";
+@import "~@/assets/scss/vendors/bootstrap-vue/index";
 </style>
