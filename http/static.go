@@ -129,12 +129,22 @@ func getStaticHandlers(store *storage.Storage, server *settings.Server, assetsFs
 			}
 		}
 
+		var contentType string
+
 		if strings.HasSuffix(r.URL.Path, ".js") {
-			w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
+			contentType = "application/javascript; charset=utf-8"
 		}
 
 		if strings.HasSuffix(r.URL.Path, ".css") {
-			w.Header().Set("Content-Type", "text/css; charset=utf-8")
+			contentType = "text/css; charset=utf-8"
+		}
+
+		if strings.HasSuffix(r.URL.Path, ".svg") {
+			contentType = "image/svg+xml"
+		}
+
+		if contentType != "" {
+			w.Header().Set("Content-Type", contentType)
 		}
 
 		found, errCode, err := tryCompressedFile(".br", "br", assetsFs, r, w)
