@@ -21,8 +21,8 @@
                 :value="req.disk_stat.used"
               >
                 <span style="color: black">
-                  {{ prettyBytes(req.disk_stat.used) }} /
-                  {{ prettyBytes(req.disk_stat.total) }}
+                  {{ prettyBytes(req.disk_stat.used, { binary: true }) }} /
+                  {{ prettyBytes(req.disk_stat.total, { binary: true }) }}
                 </span>
               </b-progress-bar>
             </b-progress>
