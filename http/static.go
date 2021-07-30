@@ -133,6 +133,10 @@ func getStaticHandlers(store *storage.Storage, server *settings.Server, assetsFs
 			w.Header().Set("Content-Type", "application/javascript; charset=utf-8")
 		}
 
+		if strings.HasSuffix(r.URL.Path, ".css") {
+			w.Header().Set("Content-Type", "text/css; charset=utf-8")
+		}
+
 		found, errCode, err := tryCompressedFile(".br", "br", assetsFs, r, w)
 		if errCode != 0 || err != nil {
 			return errCode, err
