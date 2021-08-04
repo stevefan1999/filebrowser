@@ -3,10 +3,10 @@
     <header-bar v-if="error || req.type == null" showLogo showMenu />
 
     <b-row align-v="center">
-      <b-col sm="12" md="10">
+      <b-col sm="12" md="8">
         <breadcrumbs base="/files" />
       </b-col>
-      <b-col sm="12" md="2">
+      <b-col sm="12" md="4">
         <b-row align-v="center">
           <b-col sm="4"> Disk Volume:</b-col>
           <b-col sm="8">
