@@ -148,18 +148,18 @@ func getStaticHandlers(store *storage.Storage, server *settings.Server, assetsFs
 		}
 
 		found, errCode, err := tryCompressedFile(".br", "br", assetsFs, r, w)
-		if errCode != 0 || err != nil {
-			return errCode, err
-		}
 		if found {
+			if errCode != 0 || err != nil {
+				return errCode, err
+			}
 			return 0, nil
 		}
 
 		found, errCode, err = tryCompressedFile(".gz", "gzip", assetsFs, r, w)
-		if errCode != 0 || err != nil {
-			return errCode, err
-		}
 		if found {
+			if errCode != 0 || err != nil {
+				return errCode, err
+			}
 			return 0, nil
 		}
 
