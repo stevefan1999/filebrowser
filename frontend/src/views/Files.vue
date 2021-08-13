@@ -3,13 +3,13 @@
     <header-bar v-if="error || req.type == null" showLogo showMenu />
 
     <b-row align-v="center">
-      <b-col sm="12" md="8">
+      <b-col sm="12" md="8" lg="9" xl="10">
         <breadcrumbs base="/files" />
       </b-col>
-      <b-col sm="12" md="4">
+      <b-col sm="12" md="4" lg="3" xl="2">
         <b-row align-v="center">
-          <b-col sm="4"> Disk Volume:</b-col>
-          <b-col sm="8">
+          <b-col md="4" lg="4"> Disk Volume:</b-col>
+          <b-col md="8" lg="8">
             <b-progress
               v-if="req.disk_stat"
               :max="req.disk_stat.total"
@@ -77,6 +77,7 @@ export default {
       error: null,
       width: window.innerWidth,
       progress: 25,
+      refreshTimerHandle: null
     };
   },
   computed: {
@@ -125,9 +126,16 @@ export default {
   },
   mounted() {
     window.addEventListener("keydown", this.keyEvent);
+    this.refreshTimerHandle = setInterval(async () => {
+      await this.updateData();
+    }, 5000);
   },
   beforeDestroy() {
     window.removeEventListener("keydown", this.keyEvent);
+    if (this.refreshTimerHandle !== null) {
+      clearInterval(this.refreshTimerHandle);
+      this.refreshTimerHandle = null;
+    }
   },
   destroyed() {
     if (this.$store.state.showShell) {
@@ -138,6 +146,23 @@ export default {
   methods: {
     ...mapMutations(["setLoading"]),
     prettyBytes,
+    async updateData() {
+      let url = this.$route.path;
+      if (url === "") url = "/";
+      if (url[0] !== "/") url = "/" + url;
+
+      try {
+        const res = await api.fetch(url);
+
+        if (clean(res.path) !== clean(`/${this.$route.params.pathMatch}`)) {
+          return;
+        }
+
+        this.$store.commit("updateRequest", res);
+      } catch (e) {
+        // do nothing
+      }
+    },
     async fetchData() {
       // Reset view information.
       this.$store.commit("setReload", false);
