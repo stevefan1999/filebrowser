@@ -45,9 +45,9 @@ type FileInfo struct {
 }
 
 type DiskStat struct {
-	Free  uint64 `json:"free,omitempty"`
-	Total uint64 `json:"total,omitempty"`
-	Used  uint64 `json:"used,omitempty"`
+	Free  uint64 `json:"free"`
+	Total uint64 `json:"total"`
+	Used  uint64 `json:"used"`
 }
 
 // FileOptions are the options when getting a file info.
