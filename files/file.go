@@ -48,6 +48,7 @@ type DiskStat struct {
 	Free  uint64 `json:"free"`
 	Total uint64 `json:"total"`
 	Used  uint64 `json:"used"`
+	Type  string `json:"type"`
 }
 
 // FileOptions are the options when getting a file info.
@@ -101,7 +102,7 @@ func stat(opts FileOptions) (*FileInfo, error) {
 			return nil, err
 		}
 		fullPath := afero.FullBaseFsPath(opts.Fs.(*afero.BasePathFs), opts.Path)
-		total, free, used, err := fileutils.GetDiskFreeSpaceForPath(fullPath)
+		total, free, used, type, err := fileutils.GetDiskFreeSpaceForPath(fullPath)
 		if err != nil {
 			return nil, err
 		}
@@ -117,7 +118,7 @@ func stat(opts FileOptions) (*FileInfo, error) {
 			Size:      info.Size(),
 			Extension: filepath.Ext(info.Name()),
 			Token:     opts.Token,
-			DiskStat:  DiskStat{Free: free, Total: total, Used: used},
+			DiskStat:  DiskStat{Free: free, Total: total, Used: used, Type: type},
 		}
 	}
 
