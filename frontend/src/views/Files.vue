@@ -11,7 +11,7 @@
           <b-col md="4" lg="4"> Disk Volume:</b-col>
           <b-col md="8" lg="8">
             <b-progress
-              v-if="req.disk_stat"
+              v-if="req.disk_stat && req.type !== 'overlayfs'"
               :max="req.disk_stat.total"
               :variant="diskBarVariant"
               height="2rem"
