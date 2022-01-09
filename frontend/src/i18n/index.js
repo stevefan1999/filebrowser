@@ -16,6 +16,8 @@ import pt from "./pt.json";
 import ptBR from "./pt-br.json";
 import ro from "./ro.json";
 import ru from "./ru.json";
+import sk from "./sk.json";
+import ua from "./ua.json";
 import svSE from "./sv-se.json";
 import zhCN from "./zh-cn.json";
 import zhTW from "./zh-tw.json";
@@ -70,6 +72,12 @@ export function detectLocale() {
     case /^ko.*/i.test(locale):
       locale = "ko";
       break;
+    case /^sk.*/i.test(locale):
+      locale = "sk";
+      break;
+    case /^ua.*/i.test(locale):
+      locale = "ua";
+      break;
     default:
       locale = "en";
   }
@@ -107,7 +115,9 @@ const i18n = new VueI18n({
     pt: removeEmpty(pt),
     ru: removeEmpty(ru),
     ro: removeEmpty(ro),
+    sk: removeEmpty(sk),
     "sv-se": removeEmpty(svSE),
+    ua: removeEmpty(ua),
     "zh-cn": removeEmpty(zhCN),
     "zh-tw": removeEmpty(zhTW),
   },

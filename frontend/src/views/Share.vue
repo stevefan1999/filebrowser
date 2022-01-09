@@ -93,7 +93,7 @@
             </a>
             <a
               v-if="!req.isDir"
-              :href="link + '?inline=true'"
+              :href="inlineLink"
               class="button button--flat"
               target="_blank"
             >
@@ -238,6 +238,11 @@ export default {
 
       const path = this.$route.path.split("/").splice(2).join("/");
       return `${baseURL}/api/public/dl/${path}${queryArg}`;
+    },
+    inlineLink: function () {
+      let url = new URL(this.fullLink);
+      url.searchParams.set("inline", "true");
+      return url.href;
     },
     fullLink: function () {
       return window.location.origin + this.link;

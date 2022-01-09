@@ -2,6 +2,99 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.20.1](https://github.com/filebrowser/filebrowser/compare/v2.20.0...v2.20.1) (2021-12-21)
+
+
+### Build
+
+* revert to using the default alpine based docker image ([46d8046](https://github.com/filebrowser/filebrowser/commit/46d80464d2a67927b06a11b83fb137ad364a90ed))
+
+## [2.20.0](https://github.com/filebrowser/filebrowser/compare/v2.19.0...v2.20.0) (2021-12-20)
+
+
+### Features
+
+* detect multiple subtitle languages ([#1723](https://github.com/filebrowser/filebrowser/issues/1723)) ([c2e03bb](https://github.com/filebrowser/filebrowser/commit/c2e03bbfab97fc6716bcdd59158e9d5129bf0ea7))
+* use linuxserver based docker image ([b8f35ce](https://github.com/filebrowser/filebrowser/commit/b8f35ce9322c2b0dbf954cfd3ff584bc9f742fdd))
+
+
+### Bug Fixes
+
+* set correct default database path in the config ([988d3e5](https://github.com/filebrowser/filebrowser/commit/988d3e5bdd224509ddc2f08444560e3087e9c67d))
+* upgrade vulnerable versions of the library ([6eb3ab0](https://github.com/filebrowser/filebrowser/commit/6eb3ab063509a015ad630ab704ae3791461d0982))
+
+
+### Build
+
+* refactor makefile ([f81857a](https://github.com/filebrowser/filebrowser/commit/f81857acce25936a700945db5ef4af545eaeb1cf))
+* remove deprecated goreleaser use_buildx param ([4d1b9dd](https://github.com/filebrowser/filebrowser/commit/4d1b9dd2112002a93bb26cece07dcfd81c31dc2c))
+
+## [2.19.0](https://github.com/filebrowser/filebrowser/compare/v2.18.0...v2.19.0) (2021-11-24)
+
+
+### Features
+
+* prefetch previous and next images in preview. ([#1627](https://github.com/filebrowser/filebrowser/issues/1627)) ([7401d16](https://github.com/filebrowser/filebrowser/commit/7401d16e457bb232fd7dd7ef427e8960d465705c))
+
+
+### Bug Fixes
+
+* empty file listing on share ([e082397](https://github.com/filebrowser/filebrowser/commit/e08239781f61e7bb25d9b8c5c6cce90f34621a76))
+* relative font sizes ([c29698d](https://github.com/filebrowser/filebrowser/commit/c29698dffac769077ab7c7869569a902979ee3d7))
+
+## [2.18.0](https://github.com/filebrowser/filebrowser/compare/v2.17.2...v2.18.0) (2021-10-31)
+
+
+### Features
+
+* add ability to select file modified time format ([#1536](https://github.com/filebrowser/filebrowser/issues/1536)) ([0426629](https://github.com/filebrowser/filebrowser/commit/0426629a59c712849570d3e29956948ae7725a4a))
+* add manifest theme color param ([#1542](https://github.com/filebrowser/filebrowser/issues/1542)) ([0358e42](https://github.com/filebrowser/filebrowser/commit/0358e42d2c206732fffa77714f5a66f4fe50a69d))
+
+
+### Bug Fixes
+
+* back button behaviour in preview ([#1573](https://github.com/filebrowser/filebrowser/issues/1573)) ([deabc80](https://github.com/filebrowser/filebrowser/commit/deabc80fd7670983039dfcd29531b45002ca5d9e))
+* fix sidebar navigation on mobile devices ([#1618](https://github.com/filebrowser/filebrowser/issues/1618)) ([f09bf3e](https://github.com/filebrowser/filebrowser/commit/f09bf3e1d076b27d29ba8a91cf448a99993bc444))
+* search box is misaligned when the browser preferred font size is other than 16px ([#1613](https://github.com/filebrowser/filebrowser/issues/1613)) ([6f345be](https://github.com/filebrowser/filebrowser/commit/6f345be3e47ba57ecc1eb9a62587ab949078c125))
+* security issue in command runner (closes [#1621](https://github.com/filebrowser/filebrowser/issues/1621)) ([74b7cd8](https://github.com/filebrowser/filebrowser/commit/74b7cd8e81840537a8206317344f118093153e8d))
+* set correct editor height regardless of preferred font size ([#1614](https://github.com/filebrowser/filebrowser/issues/1614)) ([ddd4ffa](https://github.com/filebrowser/filebrowser/commit/ddd4ffa4caa6b292a3a644ecd897aba1237c7503))
+* zoom pics when dlclick at first time ([#1561](https://github.com/filebrowser/filebrowser/issues/1561)) ([b6a51be](https://github.com/filebrowser/filebrowser/commit/b6a51bed516814944f8aa41440652242d57824c5))
+
+### [2.17.2](https://github.com/filebrowser/filebrowser/compare/v2.17.1...v2.17.2) (2021-08-27)
+
+
+### Bug Fixes
+
+* bug with inlineLink not creating url properly ([#1515](https://github.com/filebrowser/filebrowser/issues/1515)) ([43a4609](https://github.com/filebrowser/filebrowser/commit/43a460993c3f0d158b876db4b20caa7963e9f361))
+
+### [2.17.1](https://github.com/filebrowser/filebrowser/compare/v2.17.0...v2.17.1) (2021-08-23)
+
+
+### Bug Fixes
+
+* internal server error if --disable-preview-resize flag is set (closes [#1510](https://github.com/filebrowser/filebrowser/issues/1510)) ([4c3099a](https://github.com/filebrowser/filebrowser/commit/4c3099a086c206dcb3bc70ee8c8da02eee61c30b))
+
+## [2.17.0](https://github.com/filebrowser/filebrowser/compare/v2.16.1...v2.17.0) (2021-08-21)
+
+
+### Features
+
+* open file option on preview ([76add9e](https://github.com/filebrowser/filebrowser/commit/76add9e5274b0373c6b983e3b20e387a14ea6c9e))
+
+
+### Bug Fixes
+
+* 401 error in share view open file button ([#1495](https://github.com/filebrowser/filebrowser/issues/1495)) ([25c8788](https://github.com/filebrowser/filebrowser/commit/25c87883908babde073390a2e2320a8e5880a87c))
+* escape quote on index template ([23d646c](https://github.com/filebrowser/filebrowser/commit/23d646c456876d06cf48e71c1e57b69de99511f0)), closes [#1501](https://github.com/filebrowser/filebrowser/issues/1501)
+* file caching directive ([c63cc5a](https://github.com/filebrowser/filebrowser/commit/c63cc5a2d25909cc4e2f2e7235f276ec66c32bf2))
+
+### [2.16.1](https://github.com/filebrowser/filebrowser/compare/v2.16.0...v2.16.1) (2021-08-04)
+
+
+### Bug Fixes
+
+* check symlink target type (closes [#1488](https://github.com/filebrowser/filebrowser/issues/1488)) ([76b466f](https://github.com/filebrowser/filebrowser/commit/76b466f6492e74cf13e66a33e7e5f597ac92b240))
+
 ## [2.16.0](https://github.com/filebrowser/filebrowser/compare/v2.15.0...v2.16.0) (2021-07-26)
 
 

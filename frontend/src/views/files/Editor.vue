@@ -4,15 +4,13 @@
       <action :label="$t('buttons.close')" icon="close" @action="close()" />
       <title>{{ req.name }}</title>
 
-      <template #actions>
-        <action
-          v-if="user.perm.modify"
-          id="save-button"
-          :label="$t('buttons.save')"
-          icon="save"
-          @action="save()"
-        />
-      </template>
+      <action
+        v-if="user.perm.modify"
+        id="save-button"
+        icon="save"
+        :label="$t('buttons.save')"
+        @action="save()"
+      />
     </header-bar>
 
     <breadcrumbs base="/files" noLink />

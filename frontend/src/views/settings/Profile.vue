@@ -15,6 +15,10 @@
             <input v-model="singleClick" type="checkbox" />
             {{ $t("settings.singleClick") }}
           </p>
+          <p>
+            <input type="checkbox" v-model="dateFormat" />
+            {{ $t("settings.setDateFormat") }}
+          </p>
           <h3>{{ $t("settings.language") }}</h3>
           <languages
             :locale.sync="locale"
@@ -83,6 +87,7 @@ export default {
       passwordConf: "",
       hideDotfiles: false,
       singleClick: false,
+      dateFormat: false,
       locale: "",
     };
   },
@@ -107,6 +112,7 @@ export default {
     this.locale = this.user.locale;
     this.hideDotfiles = this.user.hideDotfiles;
     this.singleClick = this.user.singleClick;
+    this.dateFormat = this.user.dateFormat;
   },
   methods: {
     ...mapMutations(["updateUser", "setLoading"]),
@@ -135,8 +141,14 @@ export default {
           locale: this.locale,
           hideDotfiles: this.hideDotfiles,
           singleClick: this.singleClick,
+          dateFormat: this.dateFormat,
         };
-        await api.update(data, ["locale", "hideDotfiles", "singleClick"]);
+        await api.update(data, [
+          "locale",
+          "hideDotfiles",
+          "singleClick",
+          "dateFormat",
+        ]);
         this.updateUser(data);
         this.$showSuccess(this.$t("settings.settingsUpdated"));
       } catch (e) {
