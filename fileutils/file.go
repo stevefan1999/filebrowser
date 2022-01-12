@@ -132,7 +132,7 @@ func CommonPrefix(sep byte, paths ...string) string {
 func GetDiskFreeSpaceForPath(filePath string) (total, free, remaining uint64, diskType string, err error) {
 	di, err := disk.GetInfo(filePath)
 	if err != nil {
-		return 0, 0, 0, err
+		return 0, 0, 0, "", err
 	}
 	return di.Total, di.Free, di.Total - di.Free, di.FSType, nil
 }

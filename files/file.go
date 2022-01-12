@@ -102,7 +102,7 @@ func stat(opts FileOptions) (*FileInfo, error) {
 			return nil, err
 		}
 		fullPath := afero.FullBaseFsPath(opts.Fs.(*afero.BasePathFs), opts.Path)
-		total, free, used, type, err := fileutils.GetDiskFreeSpaceForPath(fullPath)
+		total, free, used, type_, err := fileutils.GetDiskFreeSpaceForPath(fullPath)
 		if err != nil {
 			return nil, err
 		}
@@ -118,7 +118,7 @@ func stat(opts FileOptions) (*FileInfo, error) {
 			Size:      info.Size(),
 			Extension: filepath.Ext(info.Name()),
 			Token:     opts.Token,
-			DiskStat:  DiskStat{Free: free, Total: total, Used: used, Type: type},
+			DiskStat:  DiskStat{Free: free, Total: total, Used: used, Type: type_},
 		}
 	}
 

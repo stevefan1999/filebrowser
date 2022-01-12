@@ -6,7 +6,6 @@
         @click="toRoot"
         :aria-label="$t('sidebar.myFiles')"
         :title="$t('sidebar.myFiles')"
-        class="action"
         to="/files/"
       >
         <i class="material-icons">folder</i>
@@ -41,7 +40,6 @@
           @click="toSettings"
           :aria-label="$t('sidebar.settings')"
           :title="$t('sidebar.settings')"
-          class="action"
           to="/settings"
         >
           <i class="material-icons">settings_applications</i>
