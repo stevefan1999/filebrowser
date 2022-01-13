@@ -25,7 +25,7 @@ linters-settings:
       - whyNoLint
       - wrapperFunc
   gocyclo:
-    min-complexity: 20
+    min-complexity: 100
   goimports:
     local-prefixes: github.com/filebrowser/filebrowser
   gomnd:
