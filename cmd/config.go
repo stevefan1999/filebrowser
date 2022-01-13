@@ -46,7 +46,6 @@ func addConfigFlags(flags *pflag.FlagSet) {
 	flags.Bool("branding.disableExternal", false, "disable external links such as GitHub links")
 }
 
-//nolint:gocyclo
 func getAuthentication(flags *pflag.FlagSet, defaults ...interface{}) (settings.AuthMethod, auth.Auther) {
 	method := settings.AuthMethod(mustGetString(flags, "auth.method"))
 

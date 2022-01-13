@@ -194,7 +194,6 @@ func cleanupHandler(listener net.Listener, c chan os.Signal) { //nolint:interfac
 	os.Exit(0)
 }
 
-//nolint:gocyclo
 func getRunParams(flags *pflag.FlagSet, st *storage.Storage) *settings.Server {
 	server, err := st.Settings.GetServer()
 	checkErr(err)
