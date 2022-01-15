@@ -51,16 +51,6 @@ docker_manifests:
   - name_template: "19037626d/filebrowser:v{{ .Major }}"
     image_templates:
       - "19037626d/filebrowser:v{{ .Major }}-amd64"
-## s6 image manifests
-  - name_template: "filebrowser/filebrowser:s6"
-    image_templates:
-      - "filebrowser/filebrowser:{{ .Tag }}-amd64-s6"
-  - name_template: "filebrowser/filebrowser:{{ .Tag }}-s6"
-    image_templates:
-      - "filebrowser/filebrowser:{{ .Tag }}-amd64-s6"
-  - name_template: "filebrowser/filebrowser:v{{ .Major }}-s6"
-    image_templates:
-      - "filebrowser/filebrowser:v{{ .Major }}-amd64-s6"
 brews:
   - name: filebrowser
     tap:
