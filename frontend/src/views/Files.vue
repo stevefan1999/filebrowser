@@ -8,10 +8,10 @@
       </b-col>
       <b-col sm="12" md="4" lg="3" xl="2">
         <b-row align-v="center">
-          <b-col md="4" lg="4"> Disk Volume:</b-col>
+          <b-col v-if="diskTypeValidForShowing" md="4" lg="4"> Disk Volume:</b-col>
           <b-col md="8" lg="8">
             <b-progress
-              v-if="req.disk_stat && req.type !== 'overlayfs'"
+              v-if="diskTypeValidForShowing"
               :max="req.disk_stat.total"
               :variant="diskBarVariant"
               height="2rem"
@@ -102,6 +102,13 @@ export default {
       return this.req.disk_stat
         ? (this.req.disk_stat.used / this.req.disk_stat.total).toFixed(2)
         : 0;
+    },
+    diskTypeValidForShowing() {
+      const { type = "" } = this.req.disk_stat;
+      return (
+        this.req.disk_stat &&
+        !["overlayfs", "unknown"].includes(type.toLowerCase())
+      );
     },
     diskBarVariant() {
       if (this.diskUsedPercentage >= 0.75) {
